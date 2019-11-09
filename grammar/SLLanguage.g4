@@ -1,7 +1,6 @@
 grammar SLLanguage;
 
 
-
 components: global
           | resource_specification
           | resource_body
@@ -10,18 +9,18 @@ components: global
           ;
 
 
-global : GLOBAL ID (constant | types)
+global : GLOBAL ID (constant | type) END
         ;
 
-resource_specification: ((spec ID)? (IMPORT COMPONENT_ID)? (constant|type|operation)?)?
-                       |RESOURCE ID( (parameters)?) (SEPARA)?
+resource_specification: SPEC ID (IMPORT ID)? (constant|type|operation)?
+                       |RESOURCE ID('(' (parameters)?')') (SEPARA)?
                        ;
 
-resource_body: (BODY ID)?  (declarations)? (INITIAL block END)? procs (FINAL block END)?
+resource_body: BODY ID  (declarations)? (INITIAL block END)? proc (FINAL block END)? END
              ;
 
 
-proc : proc ID ( (FORMAL_ID)? ) (RETURNS RESULT_ID)? block
+proc : PROC ID (id_list)?  (RETURNS result_id)? block
      ;
 
 block: (declarations)? statements
@@ -33,20 +32,20 @@ declarations: constant
             | variable
             | operation
             ;
-constant : CONST ID ASIGNACION expression
+constant : CONST ID EQUAL expression
          ;
 
-type: TYPE ID ASIGNACION type_specification
+type: TYPE ID EQUAL t type_res
     ;
 
-op_type: OPTYPE ID ASIGNACION (parameters)? (RETURNS result)?
+op_type: OPTYPE ID EQUAL (parameters)? (RETURNS result_id)?
        ;
 
 variable: VAR ID (subscripts)? ':' type(ASIGNACION expression)?
         ;
 
-operation: OP ID (subscripts)? ':'  (parameters)? (RETURNS result)?
-         | OP ID (subscripts)? OPTYPE_ID
+operation: OP ID (subscripts)?  (parameters)? (RETURNS result_id)?
+         | OP ID (subscripts)? ID
          ;
 
 statements: sequential
@@ -55,40 +54,115 @@ statements: sequential
           | resource_control
           ;
 
-sequential: SKIP
+sequential: SKP
           | variable ASIGNACION expression
           | variable INCREMENTO
           | variable DECREMENTO
-          | IF boolean_expression EJECUTA block SEPARA FI
-          | DO boolean_expression EJECUTA block SEPARA OD
-          | FA quantifier EJECUTA block AF
+          | IF expr1 EJECUTA block SEPARA FI
+          | DO expr1 EJECUTA block SEPARA OD
+          | FA quantifier2 EJECUTA block AF
           | EXIT
           | NEXT
           ;
 
-op_invocation: (CALL)? operation (actuals)?
-             | SEND operation (actuals)?
-             | CO (quantifier)? call_invocation (EJECUTA block)? OC
+op_invocation: (CALL)? operation (expression)?
+             | SEND operation (expression)?
+             | CO (quantifier)? (CALL)? operation '('(expression)?')' (EJECUTA block)? OC
              ;
 
-op_service: IN (quantifier)? operation (FORMAL_ID)? ('&' boolean_expression)? (BY expression)? EJECUTA block SEPARA NI
+op_service: IN (quantifier)? operation (id_list)? ('&' expr1)? (BY expression)? EJECUTA block SEPARA NI
           | RECEIVE operation (variable)?
           | RETURN
           | REPLY
           ;
 
-resource_control: capability ASIGNACION CREATE RESOURCE (actuals)? (ON machine)?
-                | DESTROY capability
+resource_control: ID ASIGNACION CREATE ID (actuals)? (ON ID)?
+                | DESTROY ID
                 ;
 
+t: ID
+    | INT
+    | BOOL
+    ;
 
+parameters: parameters2
+        | parameters2 ';' parameters
+        | /*epsilon*/
+        ;
 
+parameters2: id_list ':' t
+            ;
 
+id_list: ID
+        | ID ',' id_list
+        | /*epsilon*/
+        ;
 
+result_id: t
+        | id_list ':' t
+        | /*epsilon*/
+        ;
+
+type_res: LBRACE ID RBRACE
+        | /*epsilon*/
+        ;
+
+subscripts: LBRACKET id_list RBRACKET
+          | /*epsilon*/
+          ;
+
+expression: expr1 op_log expression
+          | '!' expr1 //Negacion
+          | expr1
+          ;
+
+op_log: '&' //AND
+      | '|' //OR
+      ;
+
+expr1: expr2 OPERADOR_COMPARACION expr2
+     | expr2
+     ;
+
+expr2: expr3 OPERADOR_ARITMETICO expr2
+     | expr3
+     ;
+
+expr3: ID
+     | NUM
+     | TRUE
+     | FALSE
+     ;
+
+quantifier: '(' quantifier1 ')'
+          ;
+
+quantifier1: quantifier2
+           | quantifier2 ',' quantifier1
+           ;
+
+quantifier2: ID ASIGNACION expression direction expression step_opt such_that_opt
+           ;
+
+direction: TO
+          | DOWNTO
+          ;
+
+step_opt: BY expression
+        | /*epsilon*/
+        ;
+
+such_that_opt: SUCHTHAT expression
+            | /*epsilon*/
+            ;
+
+actuals: expression
+       | expression ',' actuals
+       ;
 
 ID       : [a-zA-Z][a-zA-Z0-9_]* ;
 ESP      : [ \t\r\n]+ -> skip ;
-LINE_COMMENT 	: '#' ~[\r\n]* -> skip ;
+LINE_COMMENT   : '#' ~[\r\n]* -> skip ;
 GLOBAL   : 'global';
 END      : 'end';
 IMPORT   : 'import';
@@ -105,11 +179,14 @@ NI       : 'ni';
 CALL     : 'call';
 FA       : 'fa';
 AF       : 'af';
+LBRACKET : '(';
+RBRACKET : ')';
 INITIAL  : 'inital';
 CONST    : 'const';
 RETURNS  : 'returns';
 RETURN   : 'return';
 TO       : 'to';
+DOWNTO   : 'downto';
 FINAL    : 'final';
 OP       : 'op';
 DO       : 'do';
@@ -125,6 +202,8 @@ RECEIVE  : 'receive';
 CREATE   : 'create';
 OPTYPE   : 'optype';
 BY       : 'by';
+SUCHTHAT : 'st';
+
 TYPE     : 'type';
 NULL     : 'null';
 BOOL     : 'bool';
@@ -165,14 +244,17 @@ REC      : 'rec';
 UNION    : 'union';
 VM       : 'vm';
 XOR      : 'xor';
-SKIP     : 'skip';
+SKP     : 'skip';
 FORWARD  : 'forward';
 V        : 'V';
 P        : 'P';
 EJECUTA  : '->';
 NUM      : ( '-'?[0-9]+ | '-'?[0-9]+( | [.][0-9]+) ) ;
 SEPARA   : '[]';
+LBRACE   : '{' ;
+RBRACE   : '}' ;
 ASIGNACION : ':=';
+EQUAL : '=';
 SWAP       : ':=:';
 INCREMENTO : '++';
 DECREMENTO : '--';
@@ -182,4 +264,3 @@ AUG        : ( '+:=' | '-:=' | '*:=' | '/:=' | '%:=' | '+:=' | '**:=' );
 OPERADOR_ARITMETICO    : ('+' | '-' | '*' | '/' | '%' | '**' );
 OPERADOR_COMPARACION   : ( '=' | '>' | '<' | '<=' | '>=' | '!=' );
 CADENA          : ('"' .*? '"' | '“' .*? '”' | '\'' .*? '\'');
-
