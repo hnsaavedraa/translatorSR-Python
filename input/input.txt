@@ -1,0 +1,16 @@
+var
+  tot : numerico
+  n : numerico
+inicio
+  imprimir_explicacion()
+  imprimir ("Numero entero? ")
+  leer (n)
+  imprimir ("\nLa suma de los primeros ", n, "numeros enteros es ", tot)
+fin
+
+subrutina imprimir_explicacion()
+inicio
+  imprimir ("\nEste programa de ejemplo calcula la suma de los enteros",
+            "\npositivos comprendidos entre 1 y un valor ",
+            "que se ingresa\n")
+fin
