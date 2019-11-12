@@ -1,9 +1,8 @@
-grammar SLLanguage;
+grammar SRLanguage;
 
-
-components: global
-          | resource_specification (components)?
-          | resource_body
+components: global EOF
+          | resource_specification (components)? EOF
+          | resource_body EOF
           ;
 
 global : GLOBAL ID (constant | type) END
@@ -25,11 +24,10 @@ spec_body:
 proc : PROC ID LPARENT (id_subs_lp)? RPARENT (RETURNS result_id)? block END
      ;
 
-block: block_items
+block: (block_items)?
    ;
 
-block_items: (block_item)?
-   |   block_items (';')? block_item
+block_items: block_item ((';')? block_items)?
    ;
 
 block_item: declarations
@@ -66,7 +64,12 @@ statements: sequential
           | op_service
           | resource_control
           | explicit_call
+          | write_expr
           ;
+
+write_expr: WRITE LPARENT write_params RPARENT;
+
+write_params: expression (',' write_params)*;
 
 explicit_call: CALL invocation
         ;
@@ -208,6 +211,7 @@ expr1: expr2 OPERADOR_COMPARACION expr2
      ;
 
 expr2: expr3 OPERADOR_ARITMETICO expr2
+     | expr3 AUG expr2
      | expr3
      ;
 
@@ -248,6 +252,7 @@ actuals: expression
 qualified_id:
         ID
       | ID '.' ID
+      | ID '.' ID LPARENT id_subs_lp RPARENT
       ;
 
 GLOBAL   : 'global';
@@ -335,6 +340,7 @@ XOR      : 'xor';
 SKP     : 'skip';
 FORWARD  : 'forward';
 SEPARATE : 'separate';
+WRITE    : 'write';
 V        : 'V';
 P        : 'P';
 EJECUTA  : '->';

@@ -1,29 +1,22 @@
-const
-  MAX_ALUMNOS = 5
-var
-  notas : vector [MAX_ALUMNOS] numerico
-  suma_notas : numerico // suma de todas las notas leidas
-  prom : numerico // promedio del curso
-  cnb : numerico // cantidad con notas bajas
-  k : numerico
-  
-inicio
-  desde k=1 hasta MAX_ALUMNOS
-  {
-    imprimir ("\nIngrese nota para alumno numero ", k, ":")
-    leer (notas [k])
-    suma_notas = suma_notas + notas [k]
-  }
-  prom = suma_notas / MAX_ALUMNOS
+# output nondeterministic (shuffled).
+resource d5()
+	op worker( rep: cap (z:int); x:int )
 
-  cnb = 0
-  desde k=1 hasta MAX_ALUMNOS
-  {
-    si ( notas [k] < prom )
-    {
-      cnb = cnb + 1
-    }
-  }
-  imprimir ("\nExisten ", cnb, " alumnos con notas inferiores"," al promedio del curso, que es ", prom)
+	op rep(z:int)
+	worker(rep, 33)
+	write("before rep")
+	in rep(z) ->
+		write("got",z)
+	ni
 
-fin
+
+	proc worker(rep,n)
+		var v : int
+		v := 7777
+		write("worker before reply",n,v)
+		reply
+		write("worker after reply",n,v)
+		send rep(n+v)
+		write("worker after send rep",n,v)
+	end
+end

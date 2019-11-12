@@ -6,18 +6,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
         try {
             // crear un analizador léxico que se alimenta a partir de la entrada (archivo  o consola)
-            SLLanguageLexer lexer;
+            SRLanguageLexer lexer;
             if (args.length > 0)
-                lexer = new SLLanguageLexer(CharStreams.fromFileName(args[0]));
+                lexer = new SRLanguageLexer(CharStreams.fromFileName(args[0]));
             else
-                lexer = new SLLanguageLexer(CharStreams.fromStream(System.in));
+                lexer = new SRLanguageLexer(CharStreams.fromStream(System.in));
             // Identificar al analizador léxico como fuente de tokens para el sintactico
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             // Crear el objeto correspondiente al analizador sintáctico que se alimenta a partir del buffer de tokens
-            SLLanguageParser parser = new SLLanguageParser(tokens);
-            ParseTree tree = parser.s(); // Iniciar el analisis sintáctico en la regla inicial: r
+            SRLanguageParser parser = new SRLanguageParser(tokens);
+            ParseTree tree = parser.components(); // Iniciar el analisis sintáctico en la regla inicial: r
             ParseTreeWalker walker = new ParseTreeWalker();
-            walker.walk(new ListenerSLToPy(),tree);
+            walker.walk(new ListenerSRToPy(),tree);
             System.out.println();
 /*            VisitorSLToPy<Object> loader = new VisitorSLToPy<Object>();
             loader.visit(tree);*/

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TranslateSL2Py.iml" filepath="$PROJECT_DIR$/TranslateSL2Py.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TranslateSR2Py.iml" filepath="$PROJECT_DIR$/TranslateSR2Py.iml" />
     </modules>
   </component>
 </project>
