@@ -3,26 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="dcc2fd92-bd41-4df5-a53f-fb314f13332e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguage.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguage.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguage.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguage.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TranslateSR2Py.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TranslateSR2Py.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grammar/SRLanguage.g4" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/SRLanguage.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.interp" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ListenerSRToPy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ListenerSRToPy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,19 +26,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
   <component name="ProjectId" id="1TUcGX2RBdFg1qpMLCYTSWAMkGK" />
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/input/input.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/input/3.txt" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -77,7 +54,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TranslateSR2Py" />
-      <option name="PROGRAM_PARAMETERS" value="input/input.txt" />
+      <option name="PROGRAM_PARAMETERS" value="input/3.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -99,20 +76,9 @@
       <option name="presentableId" value="Default" />
       <updated>1561404990884</updated>
       <workItem from="1573233003567" duration="9155000" />
+      <workItem from="1573587307768" duration="7796000" />
     </task>
     <servers />
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9155000" />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />

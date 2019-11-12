@@ -9,7 +9,6 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
     public void enterGlobal(SRLanguageParser.GlobalContext ctx) {
         printIdentation();
         System.out.println("\n#File from global: " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "\n");
-        
     }
 
     @Override
@@ -165,6 +164,19 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
     @Override
     public void exitProc(SRLanguageParser.ProcContext ctx) {
         amountOfTabsStartOfSentence--;
+    }
+
+    @Override public void enterWrite_expr(SRLanguageParser.Write_exprContext ctx) { 
+        if(ctx.WRITE() != null){
+            System.out.println("print " + write_paramsTranslation(ctx.write_params()));
+        }
+    }
+    public String write_paramsTranslation(SRLanguageParser.Write_paramsContext ctx) {
+        String write = expressionTranslation(ctx.expression());
+        if(ctx.COMA().toString().equals("[,]")) {
+            write += " + " + write_paramsTranslation(ctx.write_params(0));
+        }
+        return write;
     }
 
     @Override public void enterVariable(SRLanguageParser.VariableContext ctx) {
