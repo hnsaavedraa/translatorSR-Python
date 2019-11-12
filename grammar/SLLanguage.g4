@@ -2,122 +2,205 @@ grammar SLLanguage;
 
 
 components: global
-          | resource_specification
+          | resource_specification (components)?
           | resource_body
-          | proc
-          | block
           ;
-
 
 global : GLOBAL ID (constant | type) END
         ;
 
-resource_specification: SPEC ID (IMPORT ID)? (constant|type|operation)?
-                       |RESOURCE ID('(' (parameters)?')') (SEPARA)?
-                       ;
+resource_specification: RESOURCE ID (IMPORT ID)? (declarations)* (spec_body)*
+                      | RESOURCE ID LPARENT (parameters)? RPARENT (declarations)* (statements)* (INITIAL block END)? (proc)+ (FINAL block END)? END
+                      ;
 
-resource_body: BODY ID  (declarations)? (INITIAL block END)? proc (FINAL block END)? END
+resource_body: BODY ID (declarations)? (INITIAL block END)? (proc)+ (FINAL block END)? END
              ;
 
+spec_body:
+        END
+   |   BODY ID LPARENT (parameters)? RPARENT block (INITIAL block END)? (proc)* (FINAL block END)? END (ID)?
+   |   RESOURCE ID LPARENT (parameters)? RPARENT SEPARATE
+   ;
 
-proc : PROC ID (id_list)?  (RETURNS result_id)? block
+proc : PROC ID LPARENT (id_subs_lp)? RPARENT (RETURNS result_id)? block END
      ;
 
-block: (declarations)? statements
-     ;
+block: block_items
+   ;
 
-declarations: constant
-            | type
-            | op_type
+block_items: (block_item)?
+   |   block_items (';')? block_item
+   ;
+
+block_item: declarations
+   |   statements
+   |   expression
+   ;
+
+declarations: constant (declarations)?
+            | type (declarations)?
+            | op_type (declarations)?
             | variable
-            | operation
+            | operation (declarations)?
             ;
-constant : CONST ID EQUAL expression
+
+constant : CONST ID ASIGNACION expression
          ;
 
-type: TYPE ID EQUAL t type_res
+type: TYPE ID OPERADOR_COMPARACION t type_res
     ;
 
-op_type: OPTYPE ID EQUAL (parameters)? (RETURNS result_id)?
+op_type: OPTYPE ID OPERADOR_COMPARACION LPARENT (parameters)?  RPARENT (RETURNS result_id)?
        ;
 
-variable: VAR ID (subscripts)? ':' type(ASIGNACION expression)?
+variable: VAR id_subs_lp ':' t(ASIGNACION expression)?
+        | VAR id_subs_lp ASIGNACION expression
         ;
 
-operation: OP ID (subscripts)?  (parameters)? (RETURNS result_id)?
-         | OP ID (subscripts)? ID
+operation: OP id_subs_lp op_prototype (RETURNS result_id)?
+         | OP ((id_subs_lp)? ':' ID (',')? )*
          ;
 
 statements: sequential
           | op_invocation
           | op_service
           | resource_control
+          | explicit_call
           ;
+
+explicit_call: CALL invocation
+        ;
+
+invocation: expression LPARENT (actuals)? RPARENT
+        ;
 
 sequential: SKP
           | variable ASIGNACION expression
           | variable INCREMENTO
           | variable DECREMENTO
-          | IF expr1 EJECUTA block SEPARA FI
-          | DO expr1 EJECUTA block SEPARA OD
-          | FA quantifier2 EJECUTA block AF
+          | IF expr1 EJECUTA block (SEPARA)? FI
+          | DO expr1 EJECUTA block (SEPARA)? OD
+          | FA quantifier1 EJECUTA block AF
           | EXIT
           | NEXT
           ;
 
 op_invocation: (CALL)? operation (expression)?
-             | SEND operation (expression)?
-             | CO (quantifier)? (CALL)? operation '('(expression)?')' (EJECUTA block)? OC
+             | SEND invocation
+             | CO (quantifier)? (CALL)? operation (expression)? (EJECUTA block)? OC
              ;
 
-op_service: IN (quantifier)? operation (id_list)? ('&' expr1)? (BY expression)? EJECUTA block SEPARA NI
+op_service: IN (in_cmd)* NI
           | RECEIVE operation (variable)?
           | RETURN
           | REPLY
           ;
 
-resource_control: ID ASIGNACION CREATE ID (actuals)? (ON ID)?
-                | DESTROY ID
-                ;
-
-t: ID
-    | INT
-    | BOOL
+in_cmd: (quantifier)? qualified_id (subscripts)? LPARENT (id_list)? RPARENT ('&' expr1)? (BY expression)? (RETURNS result_id)? EJECUTA block (SEPARA)?
     ;
 
-parameters: parameters2
-        | parameters2 ';' parameters
-        | /*epsilon*/
-        ;
+resource_control: ID ASIGNACION CREATE ID LPARENT (actuals)? RPARENT (ON ID)?
+                | DESTROY expression
+                ;
 
-parameters2: id_list ':' t
-            ;
+t: basic_type
+   |   enum_def
+   |   pointer_def
+   |   record_def
+   |   union_def
+   |   capability_def (t)?
+   |   qualified_id
+   ;
 
-id_list: ID
-        | ID ',' id_list
-        | /*epsilon*/
+basic_type:
+       BOOL
+   |   CHAR
+   |   INT
+   |   FILE
+   |   REAL
+   ;
+
+enum_def:
+       ENUM LPARENT id_list RPARENT
+   ;
+
+pointer_def:
+       PTR type
+   |   PTR ANY
+   ;
+
+record_def:
+       REC LPARENT  id_subs_lp ':' t(ASIGNACION expression)? RPARENT
+      | REC LPARENT id_subs_lp ASIGNACION expression RPARENT
+   ;
+
+union_def:
+       UNION LPARENT id_subs_lp ':' t(ASIGNACION expression)? RPARENT
+     | UNION LPARENT id_subs_lp ASIGNACION expression RPARENT
+   ;
+
+capability_def:
+      CAP cap_for
+   ;
+
+cap_for:
+       qualified_id
+   |   op_prototype
+   |   SEM
+   |   VM
+   ;
+
+prototype: LPARENT parameters RPARENT (RETURNS result_id)?
+    ;
+
+op_prototype: prototype (LBRACE op_res RBRACE)?
+    ;
+
+op_res: CALL
+    | SEND
+    | CALL ',' SEND
+    | SEND ',' CALL
+    ;
+
+id_list: expression
+        | (expression ',' id_list)?
+        | (expression ':' id_list)?
         ;
 
 result_id: t
-        | id_list ':' t
-        | /*epsilon*/
+        | (id_list ':' t)?
         ;
 
-type_res: LBRACE ID RBRACE
-        | /*epsilon*/
+type_res: (LBRACE ID RBRACE)?
         ;
 
 subscripts: LBRACKET id_list RBRACKET
-          | /*epsilon*/
           ;
+
+id_subs_lp: id_subs
+          | id_subs_lp ',' id_subs
+          ;
+
+id_subs: ID
+       | ID subscripts
+       ;
+
+parameters: parameters2
+        | parameters2 ';' parameters
+        ;
+
+parameters2: id_subs_lp ':' t
+            ;
 
 expression: expr1 op_log expression
           | '!' expr1 //Negacion
           | expr1
+          | expr1 ASIGNACION expression
+          | (ID)? LPARENT (actuals)? RPARENT
           ;
 
 op_log: '&' //AND
-      | '|' //OR
+      | '||' //OR
       ;
 
 expr1: expr2 OPERADOR_COMPARACION expr2
@@ -132,6 +215,10 @@ expr3: ID
      | NUM
      | TRUE
      | FALSE
+     | id_subs_lp
+     | qualified_id
+     | CADENA
+     | NULL
      ;
 
 quantifier: '(' quantifier1 ')'
@@ -148,21 +235,21 @@ direction: TO
           | DOWNTO
           ;
 
-step_opt: BY expression
-        | /*epsilon*/
+step_opt: (BY expression)?
         ;
 
-such_that_opt: SUCHTHAT expression
-            | /*epsilon*/
+such_that_opt: (SUCHTHAT expression)?
             ;
 
 actuals: expression
        | expression ',' actuals
        ;
 
-ID       : [a-zA-Z][a-zA-Z0-9_]* ;
-ESP      : [ \t\r\n]+ -> skip ;
-LINE_COMMENT   : '#' ~[\r\n]* -> skip ;
+qualified_id:
+        ID
+      | ID '.' ID
+      ;
+
 GLOBAL   : 'global';
 END      : 'end';
 IMPORT   : 'import';
@@ -179,8 +266,10 @@ NI       : 'ni';
 CALL     : 'call';
 FA       : 'fa';
 AF       : 'af';
-LBRACKET : '(';
-RBRACKET : ')';
+LPARENT  : '(';
+RPARENT  : ')';
+LBRACKET : '[';
+RBRACKET : ']';
 INITIAL  : 'inital';
 CONST    : 'const';
 RETURNS  : 'returns';
@@ -203,7 +292,6 @@ CREATE   : 'create';
 OPTYPE   : 'optype';
 BY       : 'by';
 SUCHTHAT : 'st';
-
 TYPE     : 'type';
 NULL     : 'null';
 BOOL     : 'bool';
@@ -216,8 +304,6 @@ FILE     : 'file';
 PRIVATE  : 'private';
 OR       : 'or';
 INDEX    : 'index';
-WRITE    : 'write';
-READ     : 'read';
 MOD      : 'mod';
 STOP     : 'stop';
 PROCEDURE: 'procedure';
@@ -241,11 +327,14 @@ NEW      : 'new';
 ENUM     : 'enum';
 ANY      : 'any';
 REC      : 'rec';
+PTR      : 'ptr';
 UNION    : 'union';
 VM       : 'vm';
+SEM      : 'sem';
 XOR      : 'xor';
 SKP     : 'skip';
 FORWARD  : 'forward';
+SEPARATE : 'separate';
 V        : 'V';
 P        : 'P';
 EJECUTA  : '->';
@@ -254,7 +343,6 @@ SEPARA   : '[]';
 LBRACE   : '{' ;
 RBRACE   : '}' ;
 ASIGNACION : ':=';
-EQUAL : '=';
 SWAP       : ':=:';
 INCREMENTO : '++';
 DECREMENTO : '--';
@@ -264,3 +352,6 @@ AUG        : ( '+:=' | '-:=' | '*:=' | '/:=' | '%:=' | '+:=' | '**:=' );
 OPERADOR_ARITMETICO    : ('+' | '-' | '*' | '/' | '%' | '**' );
 OPERADOR_COMPARACION   : ( '=' | '>' | '<' | '<=' | '>=' | '!=' );
 CADENA          : ('"' .*? '"' | '“' .*? '”' | '\'' .*? '\'');
+ESP      : [ \t\r\n]+ -> skip ;
+LINE_COMMENT   : '#' ~[\r\n]* -> skip ;
+ID       : [a-zA-Z][a-zA-Z0-9_]* ;
