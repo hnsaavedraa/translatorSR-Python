@@ -2,42 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcc2fd92-bd41-4df5-a53f-fb314f13332e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TranslateSL2Py.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TranslateSR2Py.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguage.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguage.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageBaseListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageBaseVisitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SLLanguageVisitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SLLanguage.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SLLanguage.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SLLanguageLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SLLanguageLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SLLanguageLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SLLanguageParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/SLLanguage.g4" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/SRLanguage.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguage.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguage.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguage.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguage.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/SRLanguageVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grammar/SRLanguage.g4" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/SRLanguage.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/5.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/input/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSL2Py/SLLanguage.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSL2Py/SLLanguage.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSL2Py/SLLanguageLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSL2Py/SLLanguageLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ListenerSLToPy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ListenerSRToPy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.interp" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguageLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ListenerSRToPy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ListenerSRToPy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VisitorSLToPy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test1.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,40 +40,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>readsen</find>
-      <find>assignationc</find>
-      <find>case</find>
-      <find>desde</find>
-      <find>assignationV</find>
-      <find>IfSentence</find>
-      <find>translationOfExpression</find>
-      <find>expressionBoolean</find>
-      <find>enteri</find>
-      <find>ReadSentence</find>
-      <find>functionParameters</find>
-      <find>assignation</find>
-      <find>expression</find>
-      <find>repeat</find>
-      <find>assignationVar</find>
-      <find>&quot;int</find>
-      <find>OPERADOR</find>
-      <find>OPERADOR()</find>
-      <find>translationOf</find>
-      <find>:</find>
-      <find>translateId</find>
-      <find>functionDECL</find>
-      <find>subrutines</find>
-      <find>exitSubrutine</find>
-      <find>test</find>
-      <find>TK_</find>
-      <find>SEND</find>
-      <find>M</find>
-      <find>BOOL</find>
-      <find>'</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -104,7 +55,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/input/4.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/input/input.txt" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -127,53 +78,6 @@
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TranslateSR2Py" />
       <option name="PROGRAM_PARAMETERS" value="input/input.txt" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <module name="TranslateSR2Py" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <module name="TranslateSR2Py" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

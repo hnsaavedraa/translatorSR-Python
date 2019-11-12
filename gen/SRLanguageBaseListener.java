@@ -183,6 +183,54 @@ public class SRLanguageBaseListener implements SRLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSubscripts(SRLanguageParser.SubscriptsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubscripts(SRLanguageParser.SubscriptsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId_subs(SRLanguageParser.Id_subsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId_subs(SRLanguageParser.Id_subsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId_list(SRLanguageParser.Id_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId_list(SRLanguageParser.Id_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOperation(SRLanguageParser.OperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -447,18 +495,6 @@ public class SRLanguageBaseListener implements SRLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId_list(SRLanguageParser.Id_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId_list(SRLanguageParser.Id_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterResult_id(SRLanguageParser.Result_idContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -478,42 +514,6 @@ public class SRLanguageBaseListener implements SRLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitType_res(SRLanguageParser.Type_resContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSubscripts(SRLanguageParser.SubscriptsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSubscripts(SRLanguageParser.SubscriptsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterId_subs(SRLanguageParser.Id_subsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId_subs(SRLanguageParser.Id_subsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

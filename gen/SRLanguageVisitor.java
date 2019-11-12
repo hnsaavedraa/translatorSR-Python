@@ -94,6 +94,30 @@ public interface SRLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariable(SRLanguageParser.VariableContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SRLanguageParser#subscripts}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubscripts(SRLanguageParser.SubscriptsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SRLanguageParser#id_subs_lp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SRLanguageParser#id_subs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId_subs(SRLanguageParser.Id_subsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SRLanguageParser#id_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId_list(SRLanguageParser.Id_listContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SRLanguageParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -226,12 +250,6 @@ public interface SRLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOp_res(SRLanguageParser.Op_resContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SRLanguageParser#id_list}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId_list(SRLanguageParser.Id_listContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SRLanguageParser#result_id}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -243,24 +261,6 @@ public interface SRLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitType_res(SRLanguageParser.Type_resContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SRLanguageParser#subscripts}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubscripts(SRLanguageParser.SubscriptsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SRLanguageParser#id_subs_lp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SRLanguageParser#id_subs}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId_subs(SRLanguageParser.Id_subsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SRLanguageParser#parameters}.
 	 * @param ctx the parse tree

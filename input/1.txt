@@ -27,29 +27,3 @@ body e1()
 		y := x.b
 	end
 end
-
-
-type t = rec (a,b:int)
-op f(x:t;y:cap e1)
-optype print = (x:t) returns y:int
-op printa, printb: print
-
-def e2():
-	var s:t
-	var c:cap e1
-	c := create e1()
-	s.a := 8888888; s.b := 44444444
-	call c.f(s,c)
-
-
-def e1():
-
-    write("f",printa(x),printb(x))
-    write("f",y.printa(x),y.printb(x))
-
-    printa(x)
-	y := x.a
-
-    printb(x)
-	y := x.b
-

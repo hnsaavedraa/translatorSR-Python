@@ -19,15 +19,9 @@ public class Main {
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk(new ListenerSRToPy(),tree);
             System.out.println();
-/*            VisitorSLToPy<Object> loader = new VisitorSLToPy<Object>();
-            loader.visit(tree);*/
-
-
-            //System.out.println(tree.toStringTree(parser)); // imprime el arbol al estilo LISP
         } catch (Exception e) {
             System.err.println("Error (Test): " + e);
-
-
         }
     }
 }
+    

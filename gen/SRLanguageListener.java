@@ -147,6 +147,46 @@ public interface SRLanguageListener extends ParseTreeListener {
 	 */
 	void exitVariable(SRLanguageParser.VariableContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SRLanguageParser#subscripts}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubscripts(SRLanguageParser.SubscriptsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SRLanguageParser#subscripts}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubscripts(SRLanguageParser.SubscriptsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SRLanguageParser#id_subs_lp}.
+	 * @param ctx the parse tree
+	 */
+	void enterId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SRLanguageParser#id_subs_lp}.
+	 * @param ctx the parse tree
+	 */
+	void exitId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SRLanguageParser#id_subs}.
+	 * @param ctx the parse tree
+	 */
+	void enterId_subs(SRLanguageParser.Id_subsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SRLanguageParser#id_subs}.
+	 * @param ctx the parse tree
+	 */
+	void exitId_subs(SRLanguageParser.Id_subsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SRLanguageParser#id_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterId_list(SRLanguageParser.Id_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SRLanguageParser#id_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitId_list(SRLanguageParser.Id_listContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SRLanguageParser#operation}.
 	 * @param ctx the parse tree
 	 */
@@ -367,16 +407,6 @@ public interface SRLanguageListener extends ParseTreeListener {
 	 */
 	void exitOp_res(SRLanguageParser.Op_resContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SRLanguageParser#id_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterId_list(SRLanguageParser.Id_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SRLanguageParser#id_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitId_list(SRLanguageParser.Id_listContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SRLanguageParser#result_id}.
 	 * @param ctx the parse tree
 	 */
@@ -396,36 +426,6 @@ public interface SRLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitType_res(SRLanguageParser.Type_resContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SRLanguageParser#subscripts}.
-	 * @param ctx the parse tree
-	 */
-	void enterSubscripts(SRLanguageParser.SubscriptsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SRLanguageParser#subscripts}.
-	 * @param ctx the parse tree
-	 */
-	void exitSubscripts(SRLanguageParser.SubscriptsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SRLanguageParser#id_subs_lp}.
-	 * @param ctx the parse tree
-	 */
-	void enterId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SRLanguageParser#id_subs_lp}.
-	 * @param ctx the parse tree
-	 */
-	void exitId_subs_lp(SRLanguageParser.Id_subs_lpContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SRLanguageParser#id_subs}.
-	 * @param ctx the parse tree
-	 */
-	void enterId_subs(SRLanguageParser.Id_subsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SRLanguageParser#id_subs}.
-	 * @param ctx the parse tree
-	 */
-	void exitId_subs(SRLanguageParser.Id_subsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SRLanguageParser#parameters}.
 	 * @param ctx the parse tree

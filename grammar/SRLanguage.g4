@@ -51,8 +51,24 @@ type: TYPE ID OPERADOR_COMPARACION t type_res
 op_type: OPTYPE ID OPERADOR_COMPARACION LPARENT (parameters)?  RPARENT (RETURNS result_id)?
        ;
 
-variable: VAR id_subs_lp ':' t(ASIGNACION expression)?
-        | VAR id_subs_lp ASIGNACION expression
+variable: VAR id_subs (COMA id_subs)* ':' t(ASIGNACION expression)?
+        | VAR id_subs (COMA id_subs)* ASIGNACION expression
+        ;
+
+subscripts: LBRACKET id_list RBRACKET
+          ;
+
+id_subs_lp: id_subs
+          | id_subs_lp COMA id_subs
+          ;
+
+id_subs: ID
+       | ID subscripts
+       ;
+
+id_list: expression
+        | (expression COMA id_list)?
+        | (expression DOSPUNTOS id_list)?
         ;
 
 operation: OP id_subs_lp op_prototype (RETURNS result_id)?
@@ -165,28 +181,12 @@ op_res: CALL
     | SEND ',' CALL
     ;
 
-id_list: expression
-        | (expression ',' id_list)?
-        | (expression ':' id_list)?
-        ;
-
 result_id: t
         | (id_list ':' t)?
         ;
 
 type_res: (LBRACE ID RBRACE)?
         ;
-
-subscripts: LBRACKET id_list RBRACKET
-          ;
-
-id_subs_lp: id_subs
-          | id_subs_lp ',' id_subs
-          ;
-
-id_subs: ID
-       | ID subscripts
-       ;
 
 parameters: parameters2
         | parameters2 ';' parameters
@@ -196,7 +196,7 @@ parameters2: id_subs_lp ':' t
             ;
 
 expression: expr1 op_log expression
-          | '!' expr1 //Negacion
+          | EXCLAMACION expr1 //Negacion
           | expr1
           | expr1 ASIGNACION expression
           | (ID)? LPARENT (actuals)? RPARENT
@@ -251,8 +251,8 @@ actuals: expression
 
 qualified_id:
         ID
-      | ID '.' ID
-      | ID '.' ID LPARENT id_subs_lp RPARENT
+      | ID PUNTO ID
+      | ID PUNTO ID LPARENT id_subs_lp RPARENT
       ;
 
 GLOBAL   : 'global';
@@ -275,6 +275,7 @@ LPARENT  : '(';
 RPARENT  : ')';
 LBRACKET : '[';
 RBRACKET : ']';
+COMA     : ',';
 INITIAL  : 'inital';
 CONST    : 'const';
 RETURNS  : 'returns';
@@ -354,6 +355,9 @@ INCREMENTO : '++';
 DECREMENTO : '--';
 DESPLAZAR_IZQ : '<<';
 DESPLAZAR_DER : '>>';
+EXCLAMACION : '!';
+PUNTO: '.';
+DOSPUNTOS: ':';
 AUG        : ( '+:=' | '-:=' | '*:=' | '/:=' | '%:=' | '+:=' | '**:=' );
 OPERADOR_ARITMETICO    : ('+' | '-' | '*' | '/' | '%' | '**' );
 OPERADOR_COMPARACION   : ( '=' | '>' | '<' | '<=' | '>=' | '!=' );
