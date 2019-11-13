@@ -7,6 +7,8 @@ resource d5()
 	write("before rep")
 	in rep(z) ->
 		write("got",z)
+		a := 777
+		write(a)
 	ni
 
 

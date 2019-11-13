@@ -4,17 +4,19 @@ import java.util.List;
 
 public class ListenerSRToPy extends SRLanguageBaseListener {
     public int amountOfTabsStartOfSentence = 0;
+    public int amountOfTabsSequential = 0;
 
     @Override
     public void enterGlobal(SRLanguageParser.GlobalContext ctx) {
         printIdentation();
-        System.out.println("\n#File from global: " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "\n");
+        System.out.println("\n#File from global: " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "\n\n" +
+                            "import numpy as np");
     }
 
     @Override
     public void enterResource_specification(SRLanguageParser.Resource_specificationContext ctx) {
         printIdentation();
-        System.out.println("\n#File from resource: " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "\n");
+        System.out.println("\n#File from resource: " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "\n\n" + "import numpy as np");
         if (ctx.IMPORT() != null){
             printIdentation();
             System.out.println("import " + ctx.ID(1).toString().replaceAll("\\[", "").replaceAll("]", ""));
@@ -24,7 +26,7 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
     @Override
     public void enterResource_body(SRLanguageParser.Resource_bodyContext ctx) {
         printIdentation();
-        System.out.println("\n#File from resource: " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "\n");
+        System.out.println("\n#File from resource: " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "\n\n" + "import numpy as np");
     }
 
     @Override
@@ -35,11 +37,32 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
 
     @Override public void enterOp_invocation(SRLanguageParser.Op_invocationContext ctx) {
         if( ctx.CALL() == null && ctx.SEND() == null && ctx.CO() == null){
-            System.out.println(expressionTranslation(ctx.expression()) +")");
+            String expr = expressionTranslation(ctx.expression());
+
+            if (expr.substring(expr.length() - 1).matches("[a-z]")
+                    || expr.substring(expr.length() - 1).matches("[A-Z]")) {
+                printIdentation();
+                System.out.print(expr);
+            } else if (!expr.contains("(")) {
+                printIdentation();
+                System.out.println(expr);
+            }
+            if (expr.contains("(")) {
+                System.out.println(expr);
+            }
         }
     }
     @Override public void enterResource_control(SRLanguageParser.Resource_controlContext ctx) {
-        System.out.println(ctx.ID(0)+" = " + ctx.ID(1) +"("+actualsTranslation(ctx.actuals())+")" );
+        
+        if(ctx.actuals() != null){
+            printIdentation();
+            System.out.println(ctx.ID(0)+" = " + ctx.ID(1) +"("+actualsTranslation(ctx.actuals())+")" );
+        }
+        else if (ctx.DESTROY() != null){
+            printIdentation();
+            System.out.print(expressionTranslation(ctx.expression()));
+        }
+        
     }
 
 
@@ -60,9 +83,11 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
         } else if (ctx.LPARENT() != null) {
             if(ctx.ID() != null){
                 expr += ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", "") + "(";
+            }else{
+                expr += "(";
             }
             if(ctx.actuals() != null){
-                expr += actualsTranslation(ctx.actuals());
+                expr += actualsTranslation(ctx.actuals()) + ")";
             }else{
                 expr += ")";
             }
@@ -124,16 +149,47 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
         return expr;
     }
 
+    @Override public void enterOp_type(SRLanguageParser.Op_typeContext ctx) {
+        String varPameter = "";
+        String varReturn = "";
+        if(ctx.parameters() != null){
+            varPameter = "def " + ctx.ID() + "(" + parametersTranslation(ctx.parameters()) + ")";
+        }
+        if(ctx.result_id() != null){
+            varReturn = "\n\treturn " + result_idTranslation(ctx.result_id());
+        }
+       System.out.println(varPameter + varReturn);
+    }
+
+    public String parametersTranslation(SRLanguageParser.ParametersContext ctx) {
+        String parameter = "";
+        if(ctx.parameters2() != null){
+            parameter = parameters2Translation(ctx.parameters2());
+        }
+        return  parameter;
+    }
+
+    public String parameters2Translation(SRLanguageParser.Parameters2Context ctx) {
+        String parameter = "";
+        if(ctx.id_subs_lp() != null){
+            parameter = idSubsLpTranslation(ctx.id_subs_lp(), "optype");
+        }
+        return parameter;
+    }
+
+    public String result_idTranslation(SRLanguageParser.Result_idContext ctx) {
+        String var = "";
+        if(ctx.id_subs_lp() != null){
+            var = idSubsLpTranslation(ctx.id_subs_lp(), "optype");
+        }
+        return var;
+    }
+
     public String idSubsLpTranslation(SRLanguageParser.Id_subs_lpContext ctx, String parent){
         String idSubsLp = "";
-        String separator = "";
-        if(parent.equals("subscripts") || parent.equals("expression")){
-            separator = "][";
-        }else{
-            separator = ", ";
-        }
+        String separator = ", ";
         if(ctx.COMA() != null){
-            idSubsLp = idSubsLpTranslation(ctx.id_subs_lp(), "idsubslp") + separator + idSubsTranslation(ctx.id_subs());
+            idSubsLp = idSubsLpTranslation(ctx.id_subs_lp(), parent) + separator + idSubsTranslation(ctx.id_subs());
         }else{
             idSubsLp = idSubsTranslation(ctx.id_subs());
         }
@@ -167,7 +223,7 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
 	@Override public void enterProc(SRLanguageParser.ProcContext ctx) { 
         String value = ctx.ID().toString();
         printIdentation();
-        System.out.println("\ndef " + value + "(" + ")"+":");
+        System.out.println("def " + value + "(" + ")"+":");
         amountOfTabsStartOfSentence++;
     }
 
@@ -178,13 +234,15 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
 
     @Override public void enterWrite_expr(SRLanguageParser.Write_exprContext ctx) { 
         if(ctx.WRITE() != null){
+            printIdentation();
             System.out.println("print(" + write_paramsTranslation(ctx.write_params())+ ")");
         }
     }
+
     public String write_paramsTranslation(SRLanguageParser.Write_paramsContext ctx) {
         String write = expressionTranslation(ctx.expression());
         if(ctx.COMA().toString().equals("[,]")) {
-            write += " , " + write_paramsTranslation(ctx.write_params(0));
+            write += ", " + write_paramsTranslation(ctx.write_params(0));
         }
         return write;
     }
@@ -193,11 +251,12 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
 
     @Override public void enterInvocation(SRLanguageParser.InvocationContext ctx) {
         if(ctx.actuals() != null){
+            printIdentation();
             System.out.println(expressionTranslation(ctx.expression()) + "("+ actualsTranslation(ctx.actuals())+ ")" );
         }
         else{
+            printIdentation();
             System.out.println(expressionTranslation(ctx.expression()) + "()" );
-
         }
     }
 
@@ -215,11 +274,11 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
                 i++;
             }
         }else{
-            var += idSubsTranslation(ctx.id_subs(0));
+            var += idSubsTranslation(ctx.id_subs(0)) + " = 0";
             int i = 1;
             while (true) {
                 if(ctx.id_subs(i) != null){
-                    var += ", " + idSubsTranslation(ctx.id_subs(i));
+                    var += ", " + idSubsTranslation(ctx.id_subs(i)) + " = 0";
                 }else{
                     break;
                 }
@@ -269,31 +328,36 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
     }
 
    	@Override public void enterSequential(SRLanguageParser.SequentialContext ctx) { 
-        printIdentation();
         if(ctx.IF() != null){
-            System.out.print("if " + expr1Translation(ctx.expr1())+":");
+            printIdentation();
+            System.out.println("if " + expr1Translation(ctx.expr1()) + ":");
+            amountOfTabsStartOfSentence++;
         }else if(ctx.DO() != null){
-            System.out.print("while "+expr1Translation(ctx.expr1())+":");
-        }else if(ctx.FA() != null){
-            System.out.print("for ");
-        }    
-        amountOfTabsStartOfSentence++;
+            printIdentation();
+            System.out.println("while "+expr1Translation(ctx.expr1()) + ":");
+            amountOfTabsStartOfSentence++;
+        }  
+    }
+
+    @Override
+    public void enterQuantifier1(SRLanguageParser.Quantifier1Context ctx) { 
+        amountOfTabsSequential++;
     }
 
     @Override
     public void exitSequential(SRLanguageParser.SequentialContext ctx) {
-        amountOfTabsStartOfSentence--;
+        amountOfTabsStartOfSentence -= amountOfTabsSequential;
+        amountOfTabsSequential = 0;
     }
 
 	@Override public void enterQuantifier2(SRLanguageParser.Quantifier2Context ctx) { 
-        System.out.println(ctx.ID() + " in range(" + expressionTranslation(ctx.expression(0)) + "," + expressionTranslation(ctx.expression(1)) + "):");
+        printIdentation();
+        System.out.println("for " + ctx.ID() + " in range(" + expressionTranslation(ctx.expression(0)) + "," + expressionTranslation(ctx.expression(1)) + "):");
     }
 
-    @Override public void enterBlock_item(SRLanguageParser.Block_itemContext ctx){
-        if(ctx.expression() != null){
-            printIdentation();
-            System.out.println(expressionTranslation(ctx.expression()));
-        }
+    @Override
+    public void exitQuantifier2(SRLanguageParser.Quantifier2Context ctx) {
+        amountOfTabsStartOfSentence++;
     }
 
     public void printIdentation(){

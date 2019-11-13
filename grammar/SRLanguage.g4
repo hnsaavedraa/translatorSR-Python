@@ -85,8 +85,7 @@ statements: sequential
 
 write_expr: WRITE LPARENT write_params RPARENT;
 
-write_params: expression
-        | expression (COMA write_params)?
+write_params: expression (COMA write_params)*
         ;
 
 explicit_call: CALL invocation
@@ -184,7 +183,7 @@ op_res: CALL
     ;
 
 result_id: t
-        | (id_list ':' t)?
+        | (id_subs_lp ':' t)?
         ;
 
 type_res: (LBRACE ID RBRACE)?
