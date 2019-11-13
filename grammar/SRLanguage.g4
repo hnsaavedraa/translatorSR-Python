@@ -106,7 +106,7 @@ sequential: SKP
           | NEXT
           ;
 
-op_invocation: (CALL)? operation (expression)?
+op_invocation: (CALL)? expression
              | SEND invocation
              | CO (quantifier)? (CALL)? operation (expression)? (EJECUTA block)? OC
              ;

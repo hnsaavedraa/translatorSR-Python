@@ -33,6 +33,16 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
         System.out.println(ctx.ID().toString().toUpperCase() + " = " + expressionTranslation(ctx.expression()));
     }
 
+    @Override public void enterOp_invocation(SRLanguageParser.Op_invocationContext ctx) {
+        if( ctx.CALL() == null && ctx.SEND() == null && ctx.CO() == null){
+            System.out.println(expressionTranslation(ctx.expression()) +")");
+        }
+    }
+    @Override public void enterResource_control(SRLanguageParser.Resource_controlContext ctx) {
+        System.out.println(ctx.ID(0)+" = " + ctx.ID(1) +"("+actualsTranslation(ctx.actuals())+")" );
+    }
+
+
     public String expressionTranslation(SRLanguageParser.ExpressionContext ctx){
         String expr = "";
         if(ctx.op_log() != null){
@@ -168,15 +178,27 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
 
     @Override public void enterWrite_expr(SRLanguageParser.Write_exprContext ctx) { 
         if(ctx.WRITE() != null){
-            System.out.println("print " + write_paramsTranslation(ctx.write_params()));
+            System.out.println("print(" + write_paramsTranslation(ctx.write_params())+ ")");
         }
     }
     public String write_paramsTranslation(SRLanguageParser.Write_paramsContext ctx) {
         String write = expressionTranslation(ctx.expression());
         if(ctx.COMA().toString().equals("[,]")) {
-            write += " + " + write_paramsTranslation(ctx.write_params(0));
+            write += " , " + write_paramsTranslation(ctx.write_params(0));
         }
         return write;
+    }
+
+
+
+    @Override public void enterInvocation(SRLanguageParser.InvocationContext ctx) {
+        if(ctx.actuals() != null){
+            System.out.println(expressionTranslation(ctx.expression()) + "("+ actualsTranslation(ctx.actuals())+ ")" );
+        }
+        else{
+            System.out.println(expressionTranslation(ctx.expression()) + "()" );
+
+        }
     }
 
     @Override public void enterVariable(SRLanguageParser.VariableContext ctx) {
