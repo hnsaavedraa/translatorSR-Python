@@ -1660,6 +1660,10 @@ public class SRLanguageParser extends Parser {
 		public TerminalNode ID(int i) {
 			return getToken(SRLanguageParser.ID, i);
 		}
+		public List<TerminalNode> COMA() { return getTokens(SRLanguageParser.COMA); }
+		public TerminalNode COMA(int i) {
+			return getToken(SRLanguageParser.COMA, i);
+		}
 		public OperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}

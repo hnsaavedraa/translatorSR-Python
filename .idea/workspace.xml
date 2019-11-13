@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcc2fd92-bd41-4df5-a53f-fb314f13332e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguage.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguage.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/SRLanguageParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/SRLanguageParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SRLanguage.interp" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/.antlr/SRLanguage.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SRLanguage.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/.antlr/SRLanguage.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SRLanguageLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/.antlr/SRLanguageLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SRLanguageLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/.antlr/SRLanguageLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grammar/.antlr/SRLanguageLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/.antlr/SRLanguageLexer.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grammar/.antlr/SRLanguageParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/.antlr/SRLanguageParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grammar/SRLanguage.g4" beforeDir="false" afterPath="$PROJECT_DIR$/grammar/SRLanguage.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input/3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.interp" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TranslateSR2Py/SRLanguage.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ListenerSRToPy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ListenerSRToPy.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,7 +38,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/input/0.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/input/1.txt" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -70,7 +60,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TranslateSR2Py" />
-      <option name="PROGRAM_PARAMETERS" value="input/4.txt" />
+      <option name="PROGRAM_PARAMETERS" value="input/0.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

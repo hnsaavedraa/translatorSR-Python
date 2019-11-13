@@ -5,6 +5,7 @@ import java.util.List;
 public class ListenerSRToPy extends SRLanguageBaseListener {
     public int amountOfTabsStartOfSentence = 0;
     public int amountOfTabsSequential = 0;
+    public String returnsito = "";
 
     @Override
     public void enterGlobal(SRLanguageParser.GlobalContext ctx) {
@@ -50,6 +51,9 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
             if (expr.contains("(")) {
                 System.out.println(expr);
             }
+        }
+        if(ctx.CALL() != null){
+             System.out.print(expressionTranslation(ctx.expression()));
         }
     }
     @Override public void enterResource_control(SRLanguageParser.Resource_controlContext ctx) {
@@ -153,7 +157,7 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
         String varPameter = "";
         String varReturn = "";
         if(ctx.parameters() != null){
-            varPameter = "def " + ctx.ID() + "(" + parametersTranslation(ctx.parameters()) + ")";
+            varPameter = "def " + ctx.ID() + "(" + parametersTranslation(ctx.parameters()) + "): ";
         }
         if(ctx.result_id() != null){
             varReturn = "\n\treturn " + result_idTranslation(ctx.result_id());
@@ -223,13 +227,21 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
 	@Override public void enterProc(SRLanguageParser.ProcContext ctx) { 
         String value = ctx.ID().toString();
         printIdentation();
-        System.out.println("def " + value + "(" + ")"+":");
+        if(ctx.RETURNS() != null){
+            returnsito = "\n\treturn " + qualifiedIDTranslation(ctx.result_id().t().qualified_id());
+        }
+        if(ctx.id_subs_lp() != null){
+            System.out.println("def " + value + "(" + idSubsLpTranslation(ctx.id_subs_lp(), "operation") + ")" + ":");
+        }else{
+            System.out.println("def " + value + "()" + ":");
+        }
         amountOfTabsStartOfSentence++;
     }
 
     @Override
     public void exitProc(SRLanguageParser.ProcContext ctx) {
         amountOfTabsStartOfSentence--;
+        System.out.println("\t" + returnsito);
     }
 
     @Override public void enterWrite_expr(SRLanguageParser.Write_exprContext ctx) { 
@@ -247,7 +259,33 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
         return write;
     }
 
-
+    @Override public void enterOperation(SRLanguageParser.OperationContext ctx) {
+        String var = "";
+        if(ctx.op_prototype() != null) {
+            if(ctx.op_prototype().prototype().RETURNS() != null){
+                returnsito = "return " + result_idTranslation(ctx.op_prototype().prototype().result_id());
+            }
+        }else if(ctx.DOSPUNTOS() != null){
+            if(ctx.COMA() != null && ctx.id_subs_lp().toArray().length > 1){
+                int i = 0;
+                while(true){
+                    if(ctx.id_subs_lp(i) != null){
+                        var = idSubsLpTranslation(ctx.id_subs_lp(i),"operation");
+                        printIdentation();
+                        System.out.println(var + " = " + ctx.ID(i).toString().replaceAll("\\[", "").replaceAll("]", ""));
+                    }else{
+                        break;
+                    }
+                    i++;
+                }
+            }else {
+                var = idSubsLpTranslation(ctx.id_subs_lp(0),"operation");
+                String[] parts = var.split(",");
+                System.out.println(parts[0] + " = " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", ""));
+                System.out.println(parts[1].toString().replaceAll(" ", "") + " = " + ctx.ID().toString().replaceAll("\\[", "").replaceAll("]", ""));
+            }
+        }
+    }
 
     @Override public void enterInvocation(SRLanguageParser.InvocationContext ctx) {
         if(ctx.actuals() != null){
@@ -286,7 +324,14 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
             }
         }
         printIdentation();
-        System.out.println(var);
+        String tocompare = var.substring(var.length()-4);
+        if( !tocompare.equals("open")){
+            System.out.println(var);
+        }
+        else{
+            System.out.print(var);
+        }
+       
     }
 
     public String idSubsTranslation(SRLanguageParser.Id_subsContext ctx){
@@ -332,9 +377,11 @@ public class ListenerSRToPy extends SRLanguageBaseListener {
             printIdentation();
             System.out.println("if " + expr1Translation(ctx.expr1()) + ":");
             amountOfTabsStartOfSentence++;
+            amountOfTabsSequential++;
         }else if(ctx.DO() != null){
             printIdentation();
             System.out.println("while "+expr1Translation(ctx.expr1()) + ":");
+            amountOfTabsSequential++;
             amountOfTabsStartOfSentence++;
         }  
     }

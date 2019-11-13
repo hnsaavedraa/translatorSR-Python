@@ -72,7 +72,7 @@ id_list: expression
         ;
 
 operation: OP id_subs_lp op_prototype (RETURNS result_id)?
-         | OP ((id_subs_lp)? ':' ID (',')? )*
+         | OP ((id_subs_lp)? ':' ID (COMA)? )*
          ;
 
 statements: sequential
